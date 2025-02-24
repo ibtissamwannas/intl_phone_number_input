@@ -30,6 +30,17 @@ class Item extends StatelessWidget {
       dialCode = dialCode.padRight(5, "   ");
     }
     return Container(
+      height: 45.0,
+      padding: EdgeInsets.symmetric(horizontal: 5),
+      decoration: BoxDecoration(
+        color: Colors.grey.withValues(alpha: 0.4),
+        borderRadius: BorderRadiusDirectional.only(
+          topStart: Radius.circular(30.0),
+          bottomStart: Radius.circular(
+            30.0,
+          ),
+        ),
+      ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
@@ -40,11 +51,16 @@ class Item extends StatelessWidget {
             showFlag: showFlag,
             useEmoji: useEmoji,
           ),
-          SizedBox(width: 12.0),
+          SizedBox(width: 5.0),
           Text(
             '$dialCode',
             textDirection: TextDirection.ltr,
             style: textStyle,
+          ),
+          SizedBox(width: 5.0),
+          Icon(
+            Icons.arrow_drop_down,
+            color: Colors.black,
           ),
         ],
       ),
@@ -71,7 +87,7 @@ class _Flag extends StatelessWidget {
                   )
                 : Image.asset(
                     country!.flagUri,
-                    width: 32.0,
+                    width: 20.0,
                     package: 'intl_phone_number_input',
                     errorBuilder: (context, error, stackTrace) {
                       return SizedBox.shrink();

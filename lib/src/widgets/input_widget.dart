@@ -13,6 +13,7 @@ import 'package:intl_phone_number_input/src/utils/test/test_helper.dart';
 import 'package:intl_phone_number_input/src/utils/util.dart';
 import 'package:intl_phone_number_input/src/utils/widget_view.dart';
 import 'package:intl_phone_number_input/src/widgets/selector_button.dart';
+import 'package:phone_numbers_parser/phone_numbers_parser.dart' as valid;
 
 /// Enum for [SelectorButton] types.
 ///
@@ -268,10 +269,13 @@ class _InputWidgetState extends State<InternationalPhoneNumberInput> {
       String phoneNumber, String? isoCode) async {
     if (phoneNumber.isNotEmpty && isoCode != null) {
       try {
-        bool? isValidPhoneNumber = await PhoneNumberUtil.isValidNumber(
-            phoneNumber: phoneNumber, isoCode: isoCode);
+        final frPhone0 =
+            valid.PhoneNumber.parse("${this.country?.dialCode}$phoneNumber");
+        bool? isValidPhoneNumber = await frPhone0.isValid();
+        // PhoneNumberUtil.isValidNumber(
+        //     phoneNumber: phoneNumber, isoCode: isoCode);
 
-        if (isValidPhoneNumber!) {
+        if (isValidPhoneNumber) {
           return await PhoneNumberUtil.normalizePhoneNumber(
               phoneNumber: phoneNumber, isoCode: isoCode);
         }
